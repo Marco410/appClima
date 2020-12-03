@@ -17,11 +17,19 @@ struct ClimaManager{
     
     var delegado : ClimaManagerDelegate?
     
-    let Climaurl = "https://api.openweathermap.org/data/2.5/weather?appid=2a9b059c57e8bf7b15979c4995666f16&units=metric"
+    let Climaurl = "https://api.openweathermap.org/data/2.5/weather?appid=2a9b059c57e8bf7b15979c4995666f16&units=metric&lang=es"
     
     func fetchClima(nombreCiudad: String){
         
-        let urlString = Climaurl + "&q=" + nombreCiudad + "&lang=es"
+        let urlString = Climaurl + "&q=" + nombreCiudad
+        
+        realizarSolicitud(urlString: urlString)
+        
+    }
+    
+    func fetchClima(lat: Double,long: Double){
+        
+        let urlString = Climaurl + "&lat=" + String(lat) + "&lon=" + String(long)
         
         realizarSolicitud(urlString: urlString)
         
@@ -60,8 +68,12 @@ struct ClimaManager{
             let nombre = dataDecodificada.name
             let descripcion = dataDecodificada.weather[0].description
             let temp = dataDecodificada.main.temp
+            let viento = dataDecodificada.wind.speed
+            let hume = dataDecodificada.main.humidity
+            let t_max = dataDecodificada.main.temp_max
+            let t_min = dataDecodificada.main.temp_min
             
-            let objClima = ClimaModelo(condicionID: id, nombreCiudad: nombre, descripcion: descripcion, temperatura: temp)
+            let objClima = ClimaModelo(condicionID: id, nombreCiudad: nombre, descripcion: descripcion, temperatura: temp, viento: viento, humedad:hume,temp_max: t_max,tem_min: t_min)
             
             return objClima
         } catch  {

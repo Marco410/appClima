@@ -12,7 +12,10 @@ struct ClimaModelo {
     let nombreCiudad : String
     let descripcion : String
     let temperatura: Double
-    
+    let viento : Double
+    let humedad : Double
+    let temp_max : Double
+    let tem_min : Double
     //Se crea propiedad computada
     
     var condicionClima: String{
@@ -22,12 +25,10 @@ struct ClimaModelo {
             return "tormenta.jpg"
         case 300...321:
             return "lluvizna.jpg"
-        
         case 701...781:
             return "nubes.jpg"
         case 800:
             return "despejado.jpeg"
-            
         default:
             return "nubesm.jpg"
         }
